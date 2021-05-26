@@ -3,30 +3,30 @@
         <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
             <thead class="sticky-top">
                 <tr>
-                    <th *ngFor="let head of headElements; let i = index" [mdbTableSort]="data?.data"
-                        [sortBy]="headElements[i]" scope="col">{{head | titlecase}}
+                    <th *ngFor="let head of headElements; let i = index"
+                        scope="col">{{head | titlecase}}
                         <mdb-icon fas icon="sort"></mdb-icon>
                     </th>
                 </tr>
             </thead>
             <tbody #row>
-                <tr *ngFor="let el of data?.data; let i = index">
-                    <th *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex"
+                <tr *ngFor="let el of data?.data | paginate: { itemsPerPage: data?.per_page, currentPage: data?.page, totalItems: data?.total}">
+                    <th
                         scope="row">{{el.id}}
                     </th>
-                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <td >
                         {{el.email}}
                     </td>
-                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <td >
                         {{el.firstName}}
                     </td>
-                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <td >
                         {{el.lastName}}
                     </td>
-                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <td >
                         {{el.avatar}}
                     </td>
-                    <td *ngIf="i+1 >= mdbTablePagination.firstItemIndex && i < mdbTablePagination.lastItemIndex">
+                    <td >
                         <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editRow(el)">Edit</button>
                         <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(el)">Remove</button>
                     </td>
@@ -34,9 +34,14 @@
             </tbody>
             <tfoot class="grey lighten-5 w-100">
                 <tr>
-                    <td colspan="5">
-                        <mdb-table-pagination [tableEl]="tableEl" paginationAlign="" [searchDataSource]="data?.data">
-                        </mdb-table-pagination>
+                    <td colspan="6">
+                        <pagination-controls *ngIf="data" [maxSize]="data?.total" [directionLinks]="true"
+                            [autoHide]="false" responsive="true" previousLabel="Previous" nextLabel="Next"
+                            (pageChange)="pageChanged($event)"
+                            (pageBoundsCorrection)="pageChanged($event)"
+                            screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                            screenReaderCurrentLabel="You're on page">
+                        </pagination-controls>
                     </td>
                 </tr>
             </tfoot>

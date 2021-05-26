@@ -4,6 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users/users.component';
 import { IconsModule, TableModule, ButtonsModule } from 'angular-bootstrap-md';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -15,7 +16,8 @@ import { IconsModule, TableModule, ButtonsModule } from 'angular-bootstrap-md';
     SharedModule,
     ButtonsModule,
     IconsModule,
-    TableModule
+    TableModule,
+    NgxPaginationModule
   ]
 })
 export class UsersModule { }

@@ -10,7 +10,6 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class UsersComponent implements OnInit {
   @ViewChild(MdbTableDirective, { static: true }) mdbTable: MdbTableDirective;
-  @ViewChild(MdbTablePaginationComponent, { static: true }) mdbTablePagination: MdbTablePaginationComponent;
   @ViewChild('row', { static: true }) row: ElementRef;
 
   data: UsersList<User[]>;
@@ -25,11 +24,11 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.usersService.getEmployees().subscribe(res => {
-      this.data = res;
-      this.mdbTable.setDataSource(this.data.data);
-      this.emitDataSourceChange();
-    });
+    this.loadData();
+  }
+
+  pageChanged(pageNumber: number): void {
+    this.loadData(pageNumber);
   }
 
   editRow(el: any) {
@@ -39,25 +38,20 @@ export class UsersComponent implements OnInit {
         editableRow: el
       }
     };
-    // this.modalRef = this.modalService.show(ModalEditComponent, modalOptions);
-    // this.modalRef.content.saveButtonClicked.subscribe((newElement: any) => {
-    //   this.elements[elementIndex] = newElement;
-    // });
     this.mdbTable.setDataSource(this.data.data);
   }
 
-  removeRow(el: any) {
-    const elementIndex = this.data.data.findIndex((elem: any) => el === elem);
-    this.mdbTable.removeRow(elementIndex);
-    this.mdbTable.getDataSource().forEach((el: any, index: any) => {
-      el.id = (index + 1).toString();
+  removeRow(userToRemove: User) {
+    const userIndex = this.data.data.findIndex((user) => userToRemove === user);
+    this.usersService.deleteEmployee(this.data.data[userIndex].id).subscribe(() => {
+      this.mdbTable.removeRow(userIndex);
     });
-    this.mdbTable.setDataSource(this.data.data);
   }
 
-  private emitDataSourceChange() {
-    this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.data.total);
-    this.mdbTablePagination.calculateFirstItemIndex();
-    this.mdbTablePagination.calculateLastItemIndex();
+  private loadData(pageNumber = 0): void {
+    this.usersService.getEmployees(pageNumber).subscribe(res => {
+      this.data = res;
+      this.mdbTable.setDataSource(this.data.data);
+    });
   }
 }
