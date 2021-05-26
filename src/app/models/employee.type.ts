@@ -1,32 +1,32 @@
-export interface EmployeeApi {
+export interface UserApi {
     id?: number;
-    employee_name: string;
-    employee_salary: number;
-    employee_age: number;
-    profile_image: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    avatar: string;
 }
 
-export class Employee {
+export class User {
     id: number;
 
-    // employee_name
-    employeeName: string;
+    // email
+    email: string;
 
-    // employee_salary
-    employeeSalary: number;
+    // first_name
+    firstName: string;
 
-    // employee_age
-    employeeAge: number;
+    // last_name
+    lastName: string;
 
     // profile_image
-    profileImage: string;
+    avatar: string;
 
-    constructor(employee: EmployeeApi) {
+    constructor(employee: UserApi) {
         this.id = employee.id;
-        this.employeeName = employee.employee_name;
-        this.employeeSalary = employee.employee_salary;
-        this.employeeAge = employee.employee_age;
-        this.profileImage = employee.profile_image;
+        this.email = employee.email;
+        this.firstName = employee.first_name;
+        this.lastName = employee.last_name;
+        this.avatar = employee.avatar;
     }
 
 }
