@@ -16,7 +16,7 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  getEmployees(pageNumber = 0): Observable<UsersList<Array<User>>> {
+  getEmployees(pageNumber = 1): Observable<UsersList<Array<User>>> {
     return this.http.get<UsersList<Array<UserApi>>>(`${USER_URL}?page=${pageNumber}`).pipe(
       map(res => ({
         ...res,

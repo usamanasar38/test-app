@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MDBModalRef } from 'angular-bootstrap-md';
 import { Subject } from 'rxjs';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'finlex-user-add-edit',
@@ -11,12 +12,15 @@ import { Subject } from 'rxjs';
 })
 export class UserAddEditComponent implements OnInit {
 
-  public user: User;
-  public saveButtonClicked = new Subject<UserApi>();
-
+  user: User;
+  saveButtonClicked = new Subject<User>();
+  saving = false;
   form: FormGroup;
 
-  constructor(public modalRef: MDBModalRef) { }
+  constructor(
+    public modalRef: MDBModalRef,
+    private usersService: UsersService
+  ) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -26,25 +30,51 @@ export class UserAddEditComponent implements OnInit {
       avatar: new FormControl('', Validators.required)
     });
 
+    if (!this.user) {
+      return;
+    }
+
     this.email.patchValue(this.user.email);
     this.firstName.patchValue(this.user.firstName);
     this.lastName.patchValue(this.user.lastName);
     this.avatar.patchValue(this.user.avatar);
   }
 
-  editRow() {
-    this.saveButtonClicked.next({
-      id: this.user.id,
-      ...this.form.getRawValue()
-    });
-
-    this.user = null;
-    this.modalRef.hide();
-  }
-
   get firstName() { return this.form.get('first_name'); }
   get lastName() { return this.form.get('last_name'); }
   get email() { return this.form.get('email'); }
   get avatar() { return this.form.get('avatar'); }
+
+  save() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.saving = true;
+
+    if (this.user) {
+      this.usersService.updateEmployee(this.user.id, this.form.getRawValue()).subscribe(res => {
+        this.saveButtonClicked.next(res);
+        this.reset();
+      }, () => {
+        this.saving = false;
+      });
+    } else {
+      this.usersService.createEmployee(this.form.getRawValue()).subscribe(res => {
+        this.saveButtonClicked.next(res);
+        this.reset();
+      }, () => {
+        this.saving = false;
+      });
+    }
+
+  }
+
+  private reset(): void {
+    this.user = null;
+    this.modalRef.hide();
+    this.form.reset();
+    this.saving = false;
+  }
 }
 
