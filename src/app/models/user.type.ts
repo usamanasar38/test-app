@@ -6,6 +6,16 @@ export interface UserApi {
     avatar: string;
 }
 
+export interface UsersApiResponse<T> {
+    data?: T;
+}
+export interface UsersList<T> extends UsersApiResponse<T> {
+    page: number;
+    per_page: number;
+    total: number;
+    total_pages: number;
+}
+
 export class User {
     id: number;
 
