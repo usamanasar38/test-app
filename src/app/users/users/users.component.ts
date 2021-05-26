@@ -33,7 +33,7 @@ export class UsersComponent implements OnInit {
     this.loadData(pageNumber);
   }
 
-  create(): void {
+  createUser(): void {
     this.modalRef = this.modalService.show(UserAddEditComponent);
     const subscription = (this.modalRef.content.saveButtonClicked as Observable<User>).subscribe((user: User) => {
       subscription.unsubscribe();
@@ -42,7 +42,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  editRow(userToRemove: User) {
+  editUser(userToRemove: User) {
     const userIndex = this.data.data.findIndex((user) => userToRemove === user);
     const modalOptions = {
       data: {

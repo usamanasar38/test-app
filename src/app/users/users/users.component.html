@@ -17,15 +17,20 @@
                         {{user.email}}
                     </td>
                     <td>
-                        <img class="rounded-circle mr-3" width="40" height="40" alt="100x100" [src]="user.avatar" data-holder-rendered="true">
+                        <img class="rounded-circle mr-3" width="40" height="40" alt="100x100" [src]="user.avatar"
+                            data-holder-rendered="true">
                         {{user.firstName}}
                     </td>
                     <td>
                         {{user.lastName}}
                     </td>
                     <td>
-                        <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editRow(user)">Edit</button>
-                        <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(user)">Remove</button>
+                        <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editUser(user)">
+                            <mdb-icon fas icon="edit"></mdb-icon>
+                        </button>
+                        <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(user)">
+                            <mdb-icon fas icon="trash-alt"></mdb-icon>
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -43,4 +48,7 @@
             </tfoot>
         </table>
     </div>
+    <a mdbBtn [rounded]="true" size="lg" color="primary" mdbWavesEffect (click)="createUser()">
+        <mdb-icon fas icon="plus"></mdb-icon>
+    </a>
 </div>
