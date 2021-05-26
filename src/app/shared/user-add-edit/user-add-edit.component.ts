@@ -1,3 +1,4 @@
+import { User, UserApi } from './../../models/user.type';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MDBModalRef } from 'angular-bootstrap-md';
@@ -10,35 +11,40 @@ import { Subject } from 'rxjs';
 })
 export class UserAddEditComponent implements OnInit {
 
-  public editableRow: { id: string, first: string, last: string, handle: string };
-  public saveButtonClicked: Subject<any> = new Subject<any>();
+  public user: User;
+  public saveButtonClicked = new Subject<UserApi>();
 
-  form: FormGroup = new FormGroup({
-    id: new FormControl({ value: '', disabled: true }),
-    first: new FormControl('', Validators.required),
-    last: new FormControl('', Validators.required),
-    handle: new FormControl('', Validators.required)
-  });
+  form: FormGroup;
 
   constructor(public modalRef: MDBModalRef) { }
 
   ngOnInit() {
-    this.form.controls['id'].patchValue(this.editableRow.id);
-    this.form.controls['first'].patchValue(this.editableRow.first);
-    this.form.controls['last'].patchValue(this.editableRow.last);
-    this.form.controls['handle'].patchValue(this.editableRow.handle);
+    this.form = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      first_name: new FormControl('', Validators.required),
+      last_name: new FormControl('', Validators.required),
+      avatar: new FormControl('', Validators.required)
+    });
+
+    this.email.patchValue(this.user.email);
+    this.firstName.patchValue(this.user.firstName);
+    this.lastName.patchValue(this.user.lastName);
+    this.avatar.patchValue(this.user.avatar);
   }
 
   editRow() {
-    this.editableRow = this.form.getRawValue();
-    this.saveButtonClicked.next(this.editableRow);
+    this.saveButtonClicked.next({
+      id: this.user.id,
+      ...this.form.getRawValue()
+    });
+
+    this.user = null;
     this.modalRef.hide();
   }
 
-  get first() { return this.form.get('first'); }
-
-  get last() { return this.form.get('last'); }
-
-  get handle() { return this.form.get('handle'); }
+  get firstName() { return this.form.get('first_name'); }
+  get lastName() { return this.form.get('last_name'); }
+  get email() { return this.form.get('email'); }
+  get avatar() { return this.form.get('avatar'); }
 }
 

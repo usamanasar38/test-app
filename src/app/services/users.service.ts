@@ -38,7 +38,9 @@ export class UsersService {
   }
 
   updateEmployee(userId: number, user: UserApi): Observable<User> {
-    return this.http.put<User>(`${USER_URL}/${userId}`, user);
+    return this.http.put<UserApi>(`${USER_URL}/${userId}`, user).pipe(
+      map(res => (new User(res)))
+    );
   }
 
   deleteEmployee(userId: number): Observable<UsersList<any>> {

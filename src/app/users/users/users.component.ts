@@ -1,7 +1,10 @@
+import { Observable } from 'rxjs';
+import { UserAddEditComponent } from './../../shared/user-add-edit/user-add-edit.component';
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { MDBModalRef, MDBModalService, MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
-import { User, UsersList } from 'src/app/models/user.type';
+import { User, UserApi, UsersList } from 'src/app/models/user.type';
 import { UsersService } from 'src/app/services/users.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'finlex-users',
@@ -13,7 +16,7 @@ export class UsersComponent implements OnInit {
   @ViewChild('row', { static: true }) row: ElementRef;
 
   data: UsersList<User[]>;
-  headElements = ['id', 'email', 'firstName', 'lastName', 'avatar', 'command'];
+  headElements = ['id', 'email', 'firstName', 'lastName', 'command'];
 
   modalRef: MDBModalRef;
 
@@ -31,14 +34,21 @@ export class UsersComponent implements OnInit {
     this.loadData(pageNumber);
   }
 
-  editRow(el: any) {
-    const elementIndex = this.data.data.findIndex((elem: any) => el === elem);
+  editRow(userToRemove: any) {
+    const userIndex = this.data.data.findIndex((user) => userToRemove === user);
     const modalOptions = {
       data: {
-        editableRow: el
+        user: userToRemove
       }
     };
-    this.mdbTable.setDataSource(this.data.data);
+
+    this.modalRef = this.modalService.show(UserAddEditComponent, modalOptions);
+    (this.modalRef.content.saveButtonClicked as Observable<UserApi>).pipe(
+      switchMap(user => this.usersService.updateEmployee(user.id, user))
+    ).subscribe((user: User) => {
+      this.data.data[userIndex] = user;
+      this.mdbTable.setDataSource(this.data.data);
+    });
   }
 
   removeRow(userToRemove: User) {

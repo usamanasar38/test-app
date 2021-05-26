@@ -3,32 +3,29 @@
         <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
             <thead class="sticky-top">
                 <tr>
-                    <th *ngFor="let head of headElements; let i = index"
-                        scope="col">{{head | titlecase}}
+                    <th *ngFor="let head of headElements; let i = index" scope="col">{{head | titlecase}}
                         <mdb-icon fas icon="sort"></mdb-icon>
                     </th>
                 </tr>
             </thead>
             <tbody #row>
-                <tr *ngFor="let el of data?.data | paginate: { itemsPerPage: data?.per_page, currentPage: data?.page, totalItems: data?.total}">
-                    <th
-                        scope="row">{{el.id}}
+                <tr
+                    *ngFor="let user of data?.data | paginate: { itemsPerPage: data?.per_page, currentPage: data?.page, totalItems: data?.total}">
+                    <th scope="row">{{user.id}}
                     </th>
-                    <td >
-                        {{el.email}}
+                    <td>
+                        {{user.email}}
                     </td>
-                    <td >
-                        {{el.firstName}}
+                    <td>
+                        <img class="rounded-circle mr-3" width="40" height="40" alt="100x100" [src]="user.avatar" data-holder-rendered="true">
+                        {{user.firstName}}
                     </td>
-                    <td >
-                        {{el.lastName}}
+                    <td>
+                        {{user.lastName}}
                     </td>
-                    <td >
-                        {{el.avatar}}
-                    </td>
-                    <td >
-                        <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editRow(el)">Edit</button>
-                        <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(el)">Remove</button>
+                    <td>
+                        <button mdbBtn color="warning" size="sm" mdbWavesEffect (click)="editRow(user)">Edit</button>
+                        <button mdbBtn color="danger" size="sm" mdbWavesEffect (click)="removeRow(user)">Remove</button>
                     </td>
                 </tr>
             </tbody>
@@ -37,8 +34,7 @@
                     <td colspan="6">
                         <pagination-controls *ngIf="data" [maxSize]="data?.total" [directionLinks]="true"
                             [autoHide]="false" responsive="true" previousLabel="Previous" nextLabel="Next"
-                            (pageChange)="pageChanged($event)"
-                            (pageBoundsCorrection)="pageChanged($event)"
+                            (pageChange)="pageChanged($event)" (pageBoundsCorrection)="pageChanged($event)"
                             screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
                             screenReaderCurrentLabel="You're on page">
                         </pagination-controls>

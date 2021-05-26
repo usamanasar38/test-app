@@ -16,6 +16,6 @@ import { InputsModule, ButtonsModule, InputUtilitiesModule } from 'angular-boots
     ButtonsModule,
     InputUtilitiesModule
   ],
-  exports: []
+  exports: [UserAddEditComponent]
 })
 export class SharedModule { }

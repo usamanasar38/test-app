@@ -1,42 +1,46 @@
 <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-        <span aria-hidden="true">×</span>
-      </button>
-      <h4 class="modal-title w-100" id="myModalLabel">Edit user: {{editableRow.first}}</h4>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="form">
-        <div class="md-form">
-          <input id="id" type="text" class="form-control grey-text" formControlName="id" mdbInput>
-          <label for="id">ID</label>
-        </div>
-        <div class="md-form">
-          <input id="first" type="text" class="form-control" formControlName="first" mdbInput mdbValidate
-                 [validateSuccess]="false">
-          <label for="first">First</label>
-          <mdb-error *ngIf="first.invalid && (first.dirty || first.touched)">Input is required</mdb-error>
-        </div>
-        <div class="md-form">
-          <input id="last" type="text" class="form-control" formControlName="last" mdbInput mdbValidate
-                 [validateSuccess]="false">
-          <label for="last">Last</label>
-          <mdb-error *ngIf="last.invalid && (last.dirty || last.touched)">Input is required</mdb-error>
-        </div>
-        <div class="md-form">
-          <input id="handle" type="text" class="form-control" formControlName="handle" mdbInput mdbValidate
-                 [validateSuccess]="false">
-          <label for="handle">Handle</label>
-          <mdb-error *ngIf="handle.invalid && (handle.dirty || handle.touched)">Input is required</mdb-error>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
-              (click)="modalRef.hide()" mdbWavesEffect>Close
-      </button>
-      <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect
-              [disabled]="form.invalid" (click)="editRow()">Save!
-      </button>
-    </div>
+  <div class="modal-header">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">×</span>
+    </button>
+    <h4 *ngIf="user" class="modal-title w-100" id="myModalLabel">Edit user: {{user.firstName + ' ' + user.lastName}}</h4>
   </div>
+  <div class="modal-body">
+    <form [formGroup]="form">
+      <div class="md-form">
+        <input id="email" type="email" class="form-control" formControlName="email" mdbInput>
+        <label for="id">Email</label>
+        <ng-container *ngIf="(email.dirty || email.touched)">
+          <mdb-error *ngIf="email.invalid && email.errors.required">Input is required</mdb-error>
+          <mdb-error *ngIf="email.invalid && !email.errors.required && email.errors.email">Invalid email address</mdb-error>
+        </ng-container>
+      </div>
+      <div class="md-form">
+        <input id="first" type="text" class="form-control" formControlName="first_name" mdbInput mdbValidate
+          [validateSuccess]="false">
+        <label for="first">First Name</label>
+        <mdb-error *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">Input is required</mdb-error>
+      </div>
+      <div class="md-form">
+        <input id="last" type="text" class="form-control" formControlName="last_name" mdbInput mdbValidate
+          [validateSuccess]="false">
+        <label for="last">Last Name</label>
+        <mdb-error *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">Input is required</mdb-error>
+      </div>
+      <div class="md-form">
+        <input id="handle" type="text" class="form-control" formControlName="avatar" mdbInput mdbValidate
+          [validateSuccess]="false">
+        <label for="handle">Avatar</label>
+        <mdb-error *ngIf="avatar.invalid && (avatar.dirty || avatar.touched)">Input is required</mdb-error>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close" (click)="modalRef.hide()"
+      mdbWavesEffect>Close
+    </button>
+    <button type="button" mdbBtn color="primary" class="relative waves-light" mdbWavesEffect [disabled]="form.invalid"
+      (click)="editRow()">Save!
+    </button>
+  </div>
+</div>
