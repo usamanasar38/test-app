@@ -4,7 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MDBModalRef, MDBModalService, MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import { User, UserApi, UsersList } from 'src/app/models/user.type';
 import { UsersService } from 'src/app/services/users.service';
-import { switchMap } from 'rxjs/operators';
+import { first, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'finlex-users',
@@ -36,8 +36,9 @@ export class UsersComponent implements OnInit {
 
   createUser(): void {
     this.modalRef = this.modalService.show(UserAddEditComponent);
-    const subscription = (this.modalRef.content.saveButtonClicked as Observable<User>).subscribe((user: User) => {
-      subscription.unsubscribe();
+    (this.modalRef.content.saveButtonClicked as Observable<User>).pipe(
+      first()
+    ).subscribe((user: User) => {
       this.data.data.push(user);
       this.mdbTable.setDataSource(this.data.data);
     });
@@ -52,8 +53,10 @@ export class UsersComponent implements OnInit {
     };
 
     this.modalRef = this.modalService.show(UserAddEditComponent, modalOptions);
-    const subscription = (this.modalRef.content.saveButtonClicked as Observable<User>).subscribe((user: User) => {
-      subscription.unsubscribe();
+
+    (this.modalRef.content.saveButtonClicked as Observable<User>).pipe(
+      first()
+    ).subscribe((user: User) => {
       this.data.data[userIndex] = user;
       this.mdbTable.setDataSource(this.data.data);
     });

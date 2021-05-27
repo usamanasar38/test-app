@@ -45,7 +45,11 @@ export class UserAddEditComponent implements OnInit {
   get email() { return this.form.get('email'); }
   get avatar() { return this.form.get('avatar'); }
 
-  save() {
+  closeModel(): void {
+    this.reset();
+  }
+
+  saveModel() {
     if (this.form.invalid) {
       return;
     }
