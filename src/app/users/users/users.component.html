@@ -1,5 +1,10 @@
 <div class="container-fluid px-4">
     <div class="row">
+        <div class="w-100 d-flex justify-content-end">
+            <a mdbBtn class="mr-0 mb-2" [rounded]="true" size="lg" color="primary" mdbWavesEffect (click)="createUser()">
+                <mdb-icon fas icon="plus"></mdb-icon>
+            </a>
+        </div>
         <table mdbTable #tableEl="mdbTable" stickyHeader="true" hover="true" striped="true" class="z-depth-1">
             <thead class="sticky-top">
                 <tr>
@@ -48,7 +53,4 @@
             </tfoot>
         </table>
     </div>
-    <a mdbBtn [rounded]="true" size="lg" color="primary" mdbWavesEffect (click)="createUser()">
-        <mdb-icon fas icon="plus"></mdb-icon>
-    </a>
 </div>
