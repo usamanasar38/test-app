@@ -34,12 +34,14 @@ export class UserAddEditComponent implements OnInit {
       return;
     }
 
+    // In edit mode, initialize form controls
     this.email.patchValue(this.user.email);
     this.firstName.patchValue(this.user.firstName);
     this.lastName.patchValue(this.user.lastName);
     this.avatar.patchValue(this.user.avatar);
   }
 
+  // Form controls getters
   get firstName() { return this.form.get('first_name'); }
   get lastName() { return this.form.get('last_name'); }
   get email() { return this.form.get('email'); }
@@ -57,6 +59,7 @@ export class UserAddEditComponent implements OnInit {
     this.saving = true;
 
     if (this.user) {
+      // update user if provided (edit mode)
       this.usersService.updateUser(this.user.id, this.form.getRawValue()).subscribe(res => {
         this.saveButtonClicked.next(res);
         this.reset();
@@ -64,6 +67,7 @@ export class UserAddEditComponent implements OnInit {
         this.saving = false;
       });
     } else {
+      // create user if no user is provided
       this.usersService.createUser(this.form.getRawValue()).subscribe(res => {
         this.saveButtonClicked.next(res);
         this.reset();
@@ -74,6 +78,7 @@ export class UserAddEditComponent implements OnInit {
 
   }
 
+  // reset component and variables
   private reset(): void {
     this.user = null;
     this.modalRef.hide();

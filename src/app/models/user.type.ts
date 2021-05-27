@@ -5,17 +5,15 @@ export interface UserApi {
     last_name: string;
     avatar: string;
 }
-
-export interface UsersApiResponse<T> {
-    data?: T;
-}
-export interface UsersList<T> extends UsersApiResponse<T> {
+export interface UsersList<T> {
     page: number;
     per_page: number;
     total: number;
     total_pages: number;
+    data: T;
 }
 
+// created user class to transform API data. Data transformer layer
 export class User {
     id: number;
 
@@ -28,9 +26,10 @@ export class User {
     // last_name
     lastName: string;
 
-    // profile_image
+    // avatar
     avatar: string;
 
+    // initialize value with API data
     constructor(employee: UserApi) {
         this.id = employee.id;
         this.email = employee.email;

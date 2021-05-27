@@ -11,7 +11,7 @@ import { InputsModule, ButtonsModule, InputUtilitiesModule } from 'angular-boots
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, // To user reactive forms
     InputsModule,
     ButtonsModule,
     InputUtilitiesModule

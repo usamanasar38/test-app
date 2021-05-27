@@ -17,8 +17,8 @@ import { UsersModule } from './users/users.module';
     BrowserModule,
     AppRoutingModule,
     MDBBootstrapModule.forRoot(),
-    BrowserAnimationsModule,
-    HttpClientModule,
+    BrowserAnimationsModule, // dependency for MDBBootstrap
+    HttpClientModule, // to use HTTP services
     LayoutModule,
     UsersModule
   ],

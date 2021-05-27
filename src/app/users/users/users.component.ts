@@ -26,7 +26,11 @@ export class UsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadData();
+    // subscribed usersListSubject to get users latest data when api is called
+    this.usersService.usersListSubject.subscribe(res => {
+      this.data = res;
+      this.mdbTable.setDataSource(this.data.data);
+    });
     this.usersService.getUsers();
   }
 
@@ -66,13 +70,6 @@ export class UsersComponent implements OnInit {
     const userIndex = this.data.data.findIndex((user) => userToRemove === user);
     this.usersService.deleteUser(this.data.data[userIndex].id).subscribe(() => {
       this.mdbTable.removeRow(userIndex);
-    });
-  }
-
-  private loadData(): void {
-    this.usersService.usersListSubject.subscribe(res => {
-      this.data = res;
-      this.mdbTable.setDataSource(this.data.data);
     });
   }
 }
