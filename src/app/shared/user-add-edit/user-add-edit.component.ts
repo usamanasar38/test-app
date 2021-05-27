@@ -53,14 +53,14 @@ export class UserAddEditComponent implements OnInit {
     this.saving = true;
 
     if (this.user) {
-      this.usersService.updateEmployee(this.user.id, this.form.getRawValue()).subscribe(res => {
+      this.usersService.updateUser(this.user.id, this.form.getRawValue()).subscribe(res => {
         this.saveButtonClicked.next(res);
         this.reset();
       }, () => {
         this.saving = false;
       });
     } else {
-      this.usersService.createEmployee(this.form.getRawValue()).subscribe(res => {
+      this.usersService.createUser(this.form.getRawValue()).subscribe(res => {
         this.saveButtonClicked.next(res);
         this.reset();
       }, () => {

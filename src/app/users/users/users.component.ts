@@ -27,10 +27,11 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    this.usersService.getUsers();
   }
 
   pageChanged(pageNumber: number): void {
-    this.loadData(pageNumber);
+    this.usersService.getUsers(pageNumber);
   }
 
   createUser(): void {
@@ -60,13 +61,13 @@ export class UsersComponent implements OnInit {
 
   removeRow(userToRemove: User) {
     const userIndex = this.data.data.findIndex((user) => userToRemove === user);
-    this.usersService.deleteEmployee(this.data.data[userIndex].id).subscribe(() => {
+    this.usersService.deleteUser(this.data.data[userIndex].id).subscribe(() => {
       this.mdbTable.removeRow(userIndex);
     });
   }
 
-  private loadData(pageNumber = 1): void {
-    this.usersService.getEmployees(pageNumber).subscribe(res => {
+  private loadData(): void {
+    this.usersService.usersListSubject.subscribe(res => {
       this.data = res;
       this.mdbTable.setDataSource(this.data.data);
     });
