@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FinlexFooterComponent } from './footer.component';
+import { AppFooterComponent } from './footer.component';
 
 describe('FooterComponent', () => {
-  let component: FinlexFooterComponent;
-  let fixture: ComponentFixture<FinlexFooterComponent>;
+  let component: AppFooterComponent;
+  let fixture: ComponentFixture<AppFooterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FinlexFooterComponent ]
+      declarations: [AppFooterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FinlexFooterComponent);
+    fixture = TestBed.createComponent(AppFooterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

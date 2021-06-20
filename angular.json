@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "finlex-test": {
+    "app-test": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -12,12 +12,12 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "finlex",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/finlex-test",
+            "outputPath": "dist/app-test",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "finlex-test:build"
+            "browserTarget": "app-test:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "finlex-test:build:production"
+              "browserTarget": "app-test:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "finlex-test:build"
+            "browserTarget": "app-test:build"
           }
         },
         "test": {
@@ -121,16 +121,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "finlex-test:serve"
+            "devServerTarget": "app-test:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "finlex-test:serve:production"
+              "devServerTarget": "app-test:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "finlex-test"
+  "defaultProject": "app-test"
 }

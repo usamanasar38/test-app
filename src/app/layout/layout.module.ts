@@ -2,7 +2,7 @@ import { NavComponent } from './nav/nav.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarModule, WavesModule, ButtonsModule } from 'angular-bootstrap-md';
-import { FinlexFooterComponent } from './footer/footer.component';
+import { AppFooterComponent } from './footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     NavComponent,
-    FinlexFooterComponent
+    AppFooterComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     NavComponent,
-    FinlexFooterComponent
+    AppFooterComponent
   ]
 })
 export class LayoutModule { }

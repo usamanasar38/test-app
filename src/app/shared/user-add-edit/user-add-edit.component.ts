@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'finlex-user-add-edit',
+  selector: 'app-user-add-edit',
   templateUrl: './user-add-edit.component.html',
   styleUrls: ['./user-add-edit.component.scss']
 })

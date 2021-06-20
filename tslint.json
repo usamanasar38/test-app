@@ -19,13 +19,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "finlex",
+      "app",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "finlex",
+      "app",
       "kebab-case"
     ],
     "eofline": true,

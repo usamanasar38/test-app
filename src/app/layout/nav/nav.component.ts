@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
-  selector: 'finlex-nav',
+  selector: 'app-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })

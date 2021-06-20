@@ -7,7 +7,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { first, switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'finlex-users',
+  selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
